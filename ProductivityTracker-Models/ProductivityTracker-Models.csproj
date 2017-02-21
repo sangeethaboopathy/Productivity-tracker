@@ -40,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Dashboard\AccountInfoDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Dashboard\AccountInfoViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginResultVM.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ProductivityTracker-Helpers\ProductivityTracker-Helpers.csproj">
       <Project>{70824ff6-ec52-4c6e-86e6-a6f6fd1c02ab}</Project>

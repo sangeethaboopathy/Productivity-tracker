@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ExecutorFacade.cs" />
     <Compile Include="Executors\BaseExecutors.cs" />
+    <Compile Include="Executors\DashboardExecutor.cs" />
     <Compile Include="Executors\LoginExecutor.cs" />
     <Compile Include="Interface\IBaseExecutor.cs" />
     <Compile Include="Interface\IDashboardExecutor.cs" />

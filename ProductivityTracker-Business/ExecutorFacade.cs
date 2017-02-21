@@ -13,7 +13,6 @@ namespace ProductivityTracker_Business
         public static ILoginExecutor GetLoginInstance()
         {
             return new LoginExecutor();
-
         }
     }
 }

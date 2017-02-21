@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductivityTracker_Business.Interface
+namespace ProductivityTracker_Models.Dto.Dashboard
 {
-    public interface IDashboardExecutor : IBaseExecutor
+    class AccountInfoDto
     {
-
     }
 }
