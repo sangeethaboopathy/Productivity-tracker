@@ -3,3 +3,5 @@ D:\Work Related\ProductivityTracker\ProductivityTracker-Models\bin\Debug\Product
 D:\Work Related\ProductivityTracker\ProductivityTracker-Models\obj\Debug\ProductivityTracker-Models.csprojResolveAssemblyReference.cache
 D:\Work Related\ProductivityTracker\ProductivityTracker-Models\obj\Debug\ProductivityTracker-Models.dll
 D:\Work Related\ProductivityTracker\ProductivityTracker-Models\obj\Debug\ProductivityTracker-Models.pdb
+D:\Work Related\ProductivityTracker\ProductivityTracker-Models\bin\Debug\ProductivityTracker-Helpers.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-Models\bin\Debug\ProductivityTracker-Helpers.pdb
