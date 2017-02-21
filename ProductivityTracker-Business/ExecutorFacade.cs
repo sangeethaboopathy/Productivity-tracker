@@ -14,5 +14,15 @@ namespace ProductivityTracker_Business
         {
             return new LoginExecutor();
         }
+
+        public static IDashboardExecutor GetDashboardInstance()
+        {
+            return new DashboardExecutor();
+        }
+
+        public static IAccountExecutor GetAccountInstance()
+        {
+            return new AccountExecutor();
+        }
     }
 }

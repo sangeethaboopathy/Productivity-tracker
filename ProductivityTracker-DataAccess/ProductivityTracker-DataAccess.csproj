@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\Account\CompleteAccountCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Account\PickAccountCommandHandler.cs" />
+    <Compile Include="CommandHandlers\Account\UploadAccountsCommandHandler.cs" />
     <Compile Include="Context\SqlServerContext.cs" />
     <Compile Include="Core\CommandHandlerBase.cs" />
     <Compile Include="Core\QueryBase.cs" />
@@ -60,15 +63,14 @@
     <Compile Include="DomainModels\UserLoginDetail.cs" />
     <Compile Include="DomainModels\UserPersonalDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryExecutors\Dashboard\GetAccountInfoQuery.cs" />
     <Compile Include="QueryExecutors\Login\VerifyLogin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CommandHandlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ProductivityTracker-DataModel\ProductivityTracker-DataModel.csproj">
       <Project>{0625fe33-28e5-4053-8470-9730453d5557}</Project>

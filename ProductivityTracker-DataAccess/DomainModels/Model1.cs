@@ -8,7 +8,7 @@ namespace ProductivityTracker_DataAccess.DomainModels
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=SqlServerContext")
+            : base("name=Model1")
         {
         }
 
