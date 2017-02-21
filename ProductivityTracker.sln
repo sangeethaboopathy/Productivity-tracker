@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTracker", "ProductivityTracker\ProductivityTracker.csproj", "{B75C1FB6-D6AC-434B-A5FA-BA35AD3B82C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTracker-DataModel", "ProductivityTracker-DataModel\ProductivityTracker-DataModel.csproj", "{0625FE33-28E5-4053-8470-9730453D5557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTracker-DataAccess", "ProductivityTracker-DataAccess\ProductivityTracker-DataAccess.csproj", "{6FF89C0B-6088-4CEF-8647-3FA85696E507}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTracker-Business", "ProductivityTracker-Business\ProductivityTracker-Business.csproj", "{5AFE4C27-139A-41F7-97E6-5FF79A3484FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTracker-Models", "ProductivityTracker-Models\ProductivityTracker-Models.csproj", "{74D12C2C-0152-4EEB-B492-802E76EBCA59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTracker-Helpers", "ProductivityTracker-Helpers\ProductivityTracker-Helpers.csproj", "{70824FF6-EC52-4C6E-86E6-A6F6FD1C02AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B75C1FB6-D6AC-434B-A5FA-BA35AD3B82C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75C1FB6-D6AC-434B-A5FA-BA35AD3B82C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75C1FB6-D6AC-434B-A5FA-BA35AD3B82C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75C1FB6-D6AC-434B-A5FA-BA35AD3B82C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0625FE33-28E5-4053-8470-9730453D5557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0625FE33-28E5-4053-8470-9730453D5557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0625FE33-28E5-4053-8470-9730453D5557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0625FE33-28E5-4053-8470-9730453D5557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF89C0B-6088-4CEF-8647-3FA85696E507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF89C0B-6088-4CEF-8647-3FA85696E507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF89C0B-6088-4CEF-8647-3FA85696E507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF89C0B-6088-4CEF-8647-3FA85696E507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AFE4C27-139A-41F7-97E6-5FF79A3484FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AFE4C27-139A-41F7-97E6-5FF79A3484FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AFE4C27-139A-41F7-97E6-5FF79A3484FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AFE4C27-139A-41F7-97E6-5FF79A3484FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74D12C2C-0152-4EEB-B492-802E76EBCA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74D12C2C-0152-4EEB-B492-802E76EBCA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74D12C2C-0152-4EEB-B492-802E76EBCA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74D12C2C-0152-4EEB-B492-802E76EBCA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70824FF6-EC52-4C6E-86E6-A6F6FD1C02AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70824FF6-EC52-4C6E-86E6-A6F6FD1C02AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70824FF6-EC52-4C6E-86E6-A6F6FD1C02AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70824FF6-EC52-4C6E-86E6-A6F6FD1C02AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

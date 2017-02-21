@@ -1,0 +1,16 @@
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-DataAccess.dll.config
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-DataAccess.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-DataAccess.pdb
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\EntityFramework.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-DataModel.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-Helpers.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-Models.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-DataModel.pdb
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-Helpers.pdb
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\ProductivityTracker-Models.pdb
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\EntityFramework.xml
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\obj\Debug\ProductivityTracker-DataAccess.csprojResolveAssemblyReference.cache
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\obj\Debug\ProductivityTracker-DataAccess.dll
+D:\Work Related\ProductivityTracker\ProductivityTracker-DataAccess\obj\Debug\ProductivityTracker-DataAccess.pdb
