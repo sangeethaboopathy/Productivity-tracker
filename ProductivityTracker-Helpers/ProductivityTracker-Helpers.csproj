@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ApplicationConstants.cs" />
+    <Compile Include="Constants\ExceptionConstants.cs" />
+    <Compile Include="Constants\SessionConstants.cs" />
+    <Compile Include="Contracts\BaseResponse.cs" />
+    <Compile Include="Enums\LoginResultEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

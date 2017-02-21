@@ -1,7 +1,9 @@
 ﻿#region Dependencies
 using Ninject.Modules;
 using ProductivityTracker_DataAccess.Context;
+using ProductivityTracker_DataAccess.QueryExecutors.Login;
 using ProductivityTracker_DataModel.Core;
+using ProductivityTracker_DataModel.Queries.Login;
 
 #endregion
 
@@ -23,8 +25,8 @@ namespace ProductivityTracker_Business.IoC
             #region Queries
             // Queries
             // Dashboard Queries 
-            //Bind<IGetEmpInforDashboardQuery>().To<GetEmpInforDashboardQuery>().InTransientScope();
-            
+            Bind<IVerifyLogin>().To<VerifyLogin>().InTransientScope();
+
 
             #endregion
 
@@ -32,7 +34,7 @@ namespace ProductivityTracker_Business.IoC
             // Commands
             // Application Home Commands
             //Bind<ICommandHandler<SaveFeedbackCommand>>().To<SaveFeedbackCommandHandler>().InTransientScope();
-            
+
             #endregion
         }
     }

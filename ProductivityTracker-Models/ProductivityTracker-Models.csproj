@@ -41,10 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Login\LoginResultVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dto\" />
-    <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProductivityTracker-Helpers\ProductivityTracker-Helpers.csproj">
+      <Project>{70824ff6-ec52-4c6e-86e6-a6f6fd1c02ab}</Project>
+      <Name>ProductivityTracker-Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
