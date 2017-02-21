@@ -165,10 +165,29 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\demo-ie8.css" />
+    <Content Include="css\demo.css" />
+    <Content Include="css\jquery.fileupload-noscript.css" />
+    <Content Include="css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="css\jquery.fileupload-ui.css" />
+    <Content Include="css\jquery.fileupload.css" />
+    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="plugins\app.js" />
+    <Content Include="plugins\jquery.fileupload-angular.js" />
+    <Content Include="plugins\jquery.fileupload-audio.js" />
+    <Content Include="plugins\jquery.fileupload-image.js" />
+    <Content Include="plugins\jquery.fileupload-jquery-ui.js" />
+    <Content Include="plugins\jquery.fileupload-process.js" />
+    <Content Include="plugins\jquery.fileupload-ui.js" />
+    <Content Include="plugins\jquery.fileupload-validate.js" />
+    <Content Include="plugins\jquery.fileupload-video.js" />
+    <Content Include="plugins\jquery.fileupload.js" />
+    <Content Include="plugins\jquery.iframe-transport.js" />
+    <Content Include="plugins\main.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -243,9 +262,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>26088</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:26088/</IISUrl>
+          <IISUrl>http://localhost:6965/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
