@@ -19,7 +19,6 @@ namespace ProductivityTracker_DataAccess.DomainModels
 
         public DateTime? EndTime { get; set; }
 
-        [Required]
         [StringLength(200)]
         public string Comment { get; set; }
     }

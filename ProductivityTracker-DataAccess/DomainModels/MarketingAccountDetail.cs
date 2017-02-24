@@ -11,10 +11,9 @@ namespace ProductivityTracker_DataAccess.DomainModels
         [Key]
         public int AccountId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string CustomAccountId { get; set; }
-
-        public int StatusInt { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -33,5 +32,7 @@ namespace ProductivityTracker_DataAccess.DomainModels
         public DateTime? UpdatedOn { get; set; }
 
         public int? UpdatedBy { get; set; }
+
+        public int StatusInt { get; set; }
     }
 }
