@@ -1,0 +1,65 @@
+﻿@model ProductivityTracker_Models.ViewModels.Dashboard.AccountInfoViewModel
+@using ProductivityTracker_Models.Dto.Dashboard;
+@using GridMvc.Html
+@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>  
+<div class="code-cut">
+    @helper CustomRenderingOfColumn(AccountInfoDto info)
+    {
+        if (info.Status == "New")
+        {
+            <button type="submit" value="@info.AccountId" onclick="pickAccount(@info.AccountId, 1)">Pick</button>
+        }
+        else if (info.Status == "Completed")
+        {
+            <button type="submit" disabled value="@info.AccountId">Completed</button>
+        }
+    }
+
+    @{ 
+        if (Model.Accounts != null)
+        {
+            @Html.Grid(Model.Accounts).Columns(
+                columns =>
+                {
+                    columns.Add(model => model.CustomId).Titled("CID-AID").Filterable(true);
+                    columns.Add(model => model.AccountName).Titled("Account Name").Filterable(true);
+                    columns.Add(model => model.StartDate).Titled("Renewal Start Date").Filterable(true);
+                    columns.Add(model => model.PickedBy).Titled("Picked By").Filterable(true);
+                    columns.Add(model => model.PickedOn).Titled("Picked On");
+                    columns.Add(model => model.Status).Titled("Status").Filterable(true);
+                    columns.Add(model => model.AccountId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfColumn(model));
+                }).WithPaging(10).Named("gridInfo").Sortable(true);
+        }
+    }
+</div>
+
+<script type="text/javascript">
+    function pickAccount(accountId, userId) {
+        debugger;
+        var url = '@Url.Action("PickAccount", "Home")';
+        var data = { id: accountId };
+        $.post(url, data, function (result) {
+            alert(result);
+        });
+        @*$.ajax({
+            url: '@Url.Action("PickAccount", "Home")',
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: { Id: accountId },
+            dataType: "json",
+            success: function (result) {
+                alert(result);
+            },
+            error: function (err) {
+                debugger;
+                alert(err.statusText);
+            }
+        });*@
+    }
+</script>

@@ -1,35 +1,36 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@model ProductivityTracker_Models.ViewModels.Dashboard.AccountInfoViewModel
 
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <div>
     <input type="file" id="btnSelectFile" onchange="checkFileType()" />
     <input type="button" id="btnUpload" value="Upload Files" />
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<div>
+    @Html.Partial("_AccountInfo", Model);
+</div>
 <script>
 
 $(document).ready(function(){
     $('#btnUpload').click(function () {
-
-        // Checking whether FormData is available in browser
         if (window.FormData !== undefined) {
 
             var fileUpload = $("#btnSelectFile").get(0);
             var files = fileUpload.files;
 
-            // Create FormData object
             var fileData = new FormData();
 
-            // Looping over all files and add it to FormData object
             for (var i = 0; i < files.length; i++) {
                 fileData.append(files[i].name, files[i]);
             }
-
-            // Adding one more key to FormData object
-            //fileData.append('username', ‘Manas’);
-
+        
             $.ajax({
                 url: '/Home/UploadFiles',
                 type: "POST",
@@ -39,7 +40,7 @@ $(document).ready(function(){
                 success: function (result) {
                     alert(result);
                 },
-                error: function (err) {
+                error: function (err) {                    
                     alert(err.statusText);
                 }
             });

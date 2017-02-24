@@ -22,7 +22,7 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
             var accountsList = (from accounts in dbContext.MarketingAccountDetails
                                 join timelog in dbContext.AccountTimeLogDetails on accounts.AccountId equals timelog.AccountId into subSet
                                 from rightJoin in subSet.DefaultIfEmpty()
-                                orderby  accounts.StatusInt, accounts.StartDate
+                                orderby accounts.StatusInt, accounts.StartDate
                                 select new AccountInfoDto
                                 {
                                     StartDate = accounts.StartDate,
@@ -31,8 +31,8 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
                                     CompletedOn = rightJoin != null ? rightJoin.EndTime : null,
                                     CreatedOn = accounts.CreatedOn,
                                     CustomId = accounts.CustomAccountId,
-                                    PickedBy = rightJoin != null ? dbContext.UserPersonalDetails.Find(rightJoin.UserId).FirstName : null,
-                                    PickedOn = rightJoin != null ? (DateTime?) rightJoin.StartTime : null,
+                                    PickedBy = rightJoin != null ? dbContext.UserPersonalDetails.FirstOrDefault(x => x.UserId == rightJoin.UserId).FirstName : null,
+                                    PickedOn = rightJoin != null ? (DateTime?)rightJoin.StartTime : null,
                                     Status = accounts.Status,
                                     TimeLogId = rightJoin != null ? rightJoin.AccountTimeLogId : 0
                                 }).ToList();
