@@ -1,15 +1,18 @@
 ﻿@model ProductivityTracker_Models.ViewModels.Dashboard.AccountInfoViewModel
 @using ProductivityTracker_Models.Dto.Dashboard;
 @using GridMvc.Html
-@{
+
+@{ 
     Layout = null;
 }
+
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>  
+
 <div class="code-cut">
-    @helper CustomRenderingOfColumn(AccountInfoDto info)
+    @helper CustomRenderingOfStatusColumn(AccountInfoDto info)
     {
         if (info.Status == "New")
         {
@@ -18,6 +21,16 @@
         else if (info.Status == "Completed")
         {
             <button type="submit" disabled value="@info.AccountId">Completed</button>
+        }
+        else if (info.Status == "In Progress")
+        {
+            @*<button type="submit" value="@info.AccountId" onclick="completeAccount(@info.TimeLogId, 1, 4)">Complete</button>*@
+            <button type="submit" value="@info.AccountId" onclick="showModal(@info.TimeLogId, @info.AccountId, 4)">Complete</button>
+            <button type="submit" value="@info.AccountId" onclick="showModal(@info.TimeLogId, @info.AccountId, 3)">Pause</button>
+        }
+        else if (info.Status == "Paused")
+        {
+                <button type="submit" value="@info.AccountId" onclick="pickAccount(@info.AccountId, 1)">Resume</button>
         }
     }
 
@@ -33,10 +46,33 @@
                     columns.Add(model => model.PickedBy).Titled("Picked By").Filterable(true);
                     columns.Add(model => model.PickedOn).Titled("Picked On");
                     columns.Add(model => model.Status).Titled("Status").Filterable(true);
-                    columns.Add(model => model.AccountId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfColumn(model));
-                }).WithPaging(10).Named("gridInfo").Sortable(true);
+                    columns.Add(model => model.AccountId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfStatusColumn(model));
+                    
+                }).WithPaging(20).Named("gridInfo").Sortable(true);
         }
     }
+</div>
+
+<div id="commentsModal" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3 id="myModalLabel">Comments</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hdnTimeLogId" />
+                <input type="hidden" id="hdnAccountId" />
+                <input type="hidden" id="hdnUserId" />
+                <input type="hidden" id="hdnStatusId" />
+                Enter comments: <input type="text" id="txtComments" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-primary" data-dismiss="modal" onclick="completeAccount()">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -45,21 +81,30 @@
         var url = '@Url.Action("PickAccount", "Home")';
         var data = { id: accountId };
         $.post(url, data, function (result) {
-            alert(result);
+            $("#accountInfo").html(result);
+            alert('Update successful!');
         });
-        @*$.ajax({
-            url: '@Url.Action("PickAccount", "Home")',
-            type: "POST",
-            contentType: 'application/json; charset=utf-8',
-            data: { Id: accountId },
-            dataType: "json",
-            success: function (result) {
-                alert(result);
-            },
-            error: function (err) {
-                debugger;
-                alert(err.statusText);
-            }
-        });*@
+    }
+
+    //function completeAccount(accountId, timeLogId, statusId, comment) {
+    function completeAccount() {
+        debugger;
+        var accountId = $('#hdnAccountId').val();
+        var timeLogId = $('#hdnTimeLogId').val();
+        var statusId = $('#hdnStatusId').val();
+        var comment = $('#txtComments').val();
+        var url = '@Url.Action("CompleteAccount", "Home")';
+        var data = { timeLogId: timeLogId, accountId: accountId, statusId: statusId, comments:comment };
+        $.post(url, data, function (result) {
+            $("#accountInfo").html(result);
+            alert('Update successful!');
+        });
+    }
+
+    function showModal(timeLogId, accountId, statusId) {
+        $('#commentsModal').modal('show');
+        $('#hdnTimeLogId').val(timeLogId);
+        $('#hdnAccountId').val(accountId);
+        $('#hdnStatusId').val(statusId);
     }
 </script>

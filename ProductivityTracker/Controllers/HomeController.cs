@@ -65,40 +65,32 @@ namespace ProductivityTracker.Controllers
         public ActionResult PickAccount(int id)
         {
             var accountExecutor = ExecutorFacade.GetAccountInstance();
+            AccountInfoViewModel accountDetails = new AccountInfoViewModel();
             BaseResponse response = accountExecutor.PickAccount(1, id);
 
-            return RedirectToAction("Index", "Home");
-        }
-
-        public JsonResult DynamicGridData(string sidx, string sord, int page, int rows, List<AccountInfoDto> data)
-        {
-            int pageIndex = Convert.ToInt32(page) - 1;
-            int pageSize = rows;
-            int totalRecords = data.Count();
-            int totalPages = (int)Math.Ceiling((float)totalRecords / (float)pageSize);
-
-            var gridData = data
-              .Skip(pageIndex * pageSize)
-              .Take(pageSize);
-
-            var jsonData = new
+            if (response != null && !response.HasError)
             {
-                total = totalPages,
-                page = page,
-                records = totalRecords,
-                rows = (
-                from item in gridData
-                select new
-                {
-                    id = item.AccountId,
-                    cell = new string[] {
-                        item.AccountId.ToString(), item.AccountName, item.CreatedOn.ToString(),item.CustomId,
-                        item.PickedBy,item.PickedOn.ToString(),item.StartDate.ToString(),item.Status,item.TimeLogId.ToString()
-                    }
-                }).ToArray()
-            };
+                var dashboardExecutor = ExecutorFacade.GetDashboardInstance();
+                accountDetails = (AccountInfoViewModel)dashboardExecutor.GetAccountDetails();
+            }
 
-            return Json(jsonData, JsonRequestBehavior.AllowGet);
+            return PartialView("_AccountInfo", accountDetails);
         }
+
+        [HttpPost]
+        public ActionResult CompleteAccount(int timeLogId, int accountId, int statusId, string comments)
+        {
+            var accountExecutor = ExecutorFacade.GetAccountInstance();
+            AccountInfoViewModel accountDetails = new AccountInfoViewModel();
+            BaseResponse response = accountExecutor.CompleteAccount(1, accountId, timeLogId, statusId, comments);
+
+            if (response != null && !response.HasError)
+            {
+                var dashboardExecutor = ExecutorFacade.GetDashboardInstance();
+                accountDetails = (AccountInfoViewModel)dashboardExecutor.GetAccountDetails();
+            }
+
+            return PartialView("_AccountInfo", accountDetails);
+        }        
     }
 }

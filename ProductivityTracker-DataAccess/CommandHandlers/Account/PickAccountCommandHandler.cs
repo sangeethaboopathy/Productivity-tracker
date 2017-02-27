@@ -21,11 +21,17 @@ namespace ProductivityTracker_DataAccess.CommandHandlers.Account
             var account = dbContext.MarketingAccountDetails.Find(command.AccountId);
             if (account != null)
             {
+                var updateDate = DateTime.Now;
+                account.Status = "In Progress";
+                account.StatusInt = 2;
+                account.UpdatedBy = command.UserId;
+                account.UpdatedOn = updateDate;
+
                 dbContext.AccountTimeLogDetails.Add(new AccountTimeLogDetail
                 {
                     UserId = command.UserId,
                     AccountId = command.AccountId,
-                    StartTime = DateTime.Now
+                    StartTime = updateDate
                 });
 
                 dbContext.SaveChanges();

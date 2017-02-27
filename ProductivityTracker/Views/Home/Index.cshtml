@@ -13,7 +13,7 @@
     <input type="button" id="btnUpload" value="Upload Files" />
 </div>
 
-<div>
+<div id="accountInfo">
     @Html.Partial("_AccountInfo", Model);
 </div>
 <script>
@@ -38,7 +38,9 @@ $(document).ready(function(){
                 processData: false, // Not to process data
                 data: fileData,
                 success: function (result) {
-                    alert(result);
+                    $("#accountInfo").html(result);
+                    $('#btnSelectFile').val("");
+                    alert('Upload successful!');
                 },
                 error: function (err) {                    
                     alert(err.statusText);

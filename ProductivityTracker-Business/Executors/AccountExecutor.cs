@@ -41,14 +41,14 @@ namespace ProductivityTracker_Business.Executors
 
                 return new BaseResponse
                 {
-                    HasError = true
+                    HasError = false
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponse
                 {
-                    HasError = false
+                    HasError = true
                 };
             }
         }
@@ -65,19 +65,19 @@ namespace ProductivityTracker_Business.Executors
 
                 return new BaseResponse
                 {
-                    HasError = true
+                    HasError = false
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponse
                 {
-                    HasError = false
+                    HasError = true
                 };
             }
         }
 
-        public BaseResponse CompleteAccount(int userId, int accountId, int timeLogId, string comment)
+        public BaseResponse CompleteAccount(int userId, int accountId, int timeLogId, int statusId, string comment)
         {
             try
             {
@@ -86,19 +86,20 @@ namespace ProductivityTracker_Business.Executors
                     AccountId = accountId,
                     UserId = userId,
                     TimeLogId = timeLogId,
-                    Comment = comment
+                    Comment = comment,
+                    StatusInt = statusId
                 });
 
                 return new BaseResponse
                 {
-                    HasError = true
+                    HasError = false
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponse
                 {
-                    HasError = false
+                    HasError = true
                 };
             }
         }

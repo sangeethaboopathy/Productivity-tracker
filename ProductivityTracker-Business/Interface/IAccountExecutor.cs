@@ -11,6 +11,6 @@ namespace ProductivityTracker_Business.Interface
     {
         BaseResponse UploadAccountsInfo(string fileContent, int userId);
         BaseResponse PickAccount(int userId, int accountId);
-        BaseResponse CompleteAccount(int userId, int accountId, int timeLogId, string comment);
+        BaseResponse CompleteAccount(int userId, int accountId, int timeLogId, int statusId, string comment);
     }
 }

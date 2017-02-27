@@ -13,5 +13,6 @@ namespace ProductivityTracker_DataModel.Commands.Account
         public int AccountId { get; set; }
         public int TimeLogId { get; set; }
         public string Comment { get; set; }
+        public int StatusInt { get; set; }
     }
 }

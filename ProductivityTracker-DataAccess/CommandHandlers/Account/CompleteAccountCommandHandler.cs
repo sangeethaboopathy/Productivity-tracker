@@ -21,6 +21,11 @@ namespace ProductivityTracker_DataAccess.CommandHandlers.Account
             var account = dbContext.MarketingAccountDetails.Find(command.AccountId);
             if (account != null)
             {
+                var updateDate = DateTime.Now;
+                account.Status = command.StatusInt == 3 ? "Paused" : "Completed";
+                account.StatusInt = command.StatusInt;
+                account.UpdatedOn = updateDate;
+
                 var timeLog = dbContext.AccountTimeLogDetails.Find(command.TimeLogId);
                 if (timeLog != null && timeLog.AccountId == command.AccountId)
                 {
