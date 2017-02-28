@@ -49,10 +49,12 @@
     <Compile Include="Executors\BaseExecutors.cs" />
     <Compile Include="Executors\DashboardExecutor.cs" />
     <Compile Include="Executors\LoginExecutor.cs" />
+    <Compile Include="Executors\UserDetailsExecutor.cs" />
     <Compile Include="Interface\IAccountExecutor.cs" />
     <Compile Include="Interface\IBaseExecutor.cs" />
     <Compile Include="Interface\IDashboardExecutor.cs" />
     <Compile Include="Interface\ILoginExecutor.cs" />
+    <Compile Include="Interface\IUserDetailsExecutor.cs" />
     <Compile Include="IoC\Configuration.cs" />
     <Compile Include="IoC\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

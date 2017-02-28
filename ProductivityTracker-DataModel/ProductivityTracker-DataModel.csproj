@@ -52,6 +52,7 @@
     <Compile Include="Core\QueryFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Dashboard\IGetAccountInfoQuery.cs" />
+    <Compile Include="Queries\Login\IGetUserDetails.cs" />
     <Compile Include="Queries\Login\IVerifyLogin.cs" />
   </ItemGroup>
   <ItemGroup>

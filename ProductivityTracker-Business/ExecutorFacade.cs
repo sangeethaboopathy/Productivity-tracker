@@ -24,5 +24,10 @@ namespace ProductivityTracker_Business
         {
             return new AccountExecutor();
         }
+
+        public static IUserDetailsExecutor GetUserDetailsInstance()
+        {
+            return new UserDetailsExecutor();
+        }
     }
 }

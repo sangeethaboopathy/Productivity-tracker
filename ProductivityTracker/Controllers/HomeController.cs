@@ -66,7 +66,7 @@ namespace ProductivityTracker.Controllers
         {
             var accountExecutor = ExecutorFacade.GetAccountInstance();
             AccountInfoViewModel accountDetails = new AccountInfoViewModel();
-            BaseResponse response = accountExecutor.PickAccount(1, id);
+            BaseResponse response = accountExecutor.PickAccount(Convert.ToInt16(Session["UserId"]), id);
 
             if (response != null && !response.HasError)
             {

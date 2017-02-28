@@ -30,7 +30,7 @@ namespace ProductivityTracker_Business.IoC
             // Queries
             Bind<IVerifyLogin>().To<VerifyLogin>().InTransientScope();
             Bind<IGetAccountInfoQuery>().To<GetAccountInfoQuery>().InTransientScope();
-
+            Bind<IGetUserDetails>().To<GetUserDetails>().InTransientScope();
             #endregion
 
             #region Commands
