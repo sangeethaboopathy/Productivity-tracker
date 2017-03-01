@@ -60,6 +60,7 @@
     <Compile Include="DomainModels\AccountTimeLogDetail.cs" />
     <Compile Include="DomainModels\MarketingAccountDetail.cs" />
     <Compile Include="DomainModels\Model1.cs" />
+    <Compile Include="DomainModels\ProjectDetail.cs" />
     <Compile Include="DomainModels\UserLoginDetail.cs" />
     <Compile Include="DomainModels\UserPersonalDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,5 +21,7 @@ namespace ProductivityTracker_DataAccess.DomainModels
 
         [StringLength(200)]
         public string Comment { get; set; }
+
+        public int? Status { get; set; }
     }
 }

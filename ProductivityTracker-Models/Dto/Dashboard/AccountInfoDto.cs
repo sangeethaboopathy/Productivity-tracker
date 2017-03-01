@@ -19,4 +19,12 @@ namespace ProductivityTracker_Models.Dto.Dashboard
         public DateTime CreatedOn { get; set; }
         public int TimeLogId { get; set; }
     }
+
+    public class ProgressHistory
+    {
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string UserName { get; set; }
+        public string Status { get; set; }
+    }
 }

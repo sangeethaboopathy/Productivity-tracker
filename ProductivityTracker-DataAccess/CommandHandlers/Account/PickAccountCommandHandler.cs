@@ -31,7 +31,8 @@ namespace ProductivityTracker_DataAccess.CommandHandlers.Account
                 {
                     UserId = command.UserId,
                     AccountId = command.AccountId,
-                    StartTime = updateDate
+                    StartTime = updateDate,
+                    Status = 2
                 });
 
                 dbContext.SaveChanges();

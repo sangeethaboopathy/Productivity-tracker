@@ -29,7 +29,7 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
                     CustomId = item.CustomAccountId,
                     Status = item.Status,
                 };
-                var timelog = dbContext.AccountTimeLogDetails.Where(x => x.AccountId == item.AccountId).OrderByDescending(var => var.EndTime).FirstOrDefault();
+                var timelog = dbContext.AccountTimeLogDetails.Where(x => x.AccountId == item.AccountId).OrderByDescending(var => var.StartTime).FirstOrDefault();
 
                 if (timelog != null)
                 {
@@ -41,27 +41,7 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
 
                 info.Add(accountInfo);
             }
-
-            //var accountsList = (from accounts in dbContext.MarketingAccountDetails
-            //                    join timelog in timelogList on accounts.AccountId equals timelog.AccountId into subSet
-            //                    from rightJoin in subSet.DefaultIfEmpty()
-            //                    orderby accounts.StatusInt, accounts.StartDate
-            //                    select new AccountInfoDto
-            //                    {
-            //                        StartDate = accounts.StartDate,
-            //                        AccountId = accounts.AccountId,
-            //                        AccountName = accounts.AccountName,
-            //                        CompletedOn = rightJoin != null ? rightJoin.EndTime : null,
-            //                        CreatedOn = accounts.CreatedOn,
-            //                        CustomId = accounts.CustomAccountId,
-            //                        PickedBy = rightJoin != null ? dbContext.UserPersonalDetails.FirstOrDefault(x => x.UserId == rightJoin.UserId).FirstName : null,
-            //                        PickedOn = rightJoin != null ? (DateTime?)rightJoin.StartTime : null,
-            //                        Status = accounts.Status,
-            //                        TimeLogId = rightJoin != null ? rightJoin.AccountTimeLogId : 0
-            //                    }).ToList();
-
-            //return accountsList;
-
+            
             return info.ToList();
         }
     }

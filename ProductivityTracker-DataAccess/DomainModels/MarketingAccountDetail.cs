@@ -34,5 +34,9 @@ namespace ProductivityTracker_DataAccess.DomainModels
         public int? UpdatedBy { get; set; }
 
         public int StatusInt { get; set; }
+
+        public int? ProjectId { get; set; }
+
+        public virtual ProjectDetail ProjectDetail { get; set; }
     }
 }
