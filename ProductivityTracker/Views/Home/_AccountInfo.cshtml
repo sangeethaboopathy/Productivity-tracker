@@ -24,13 +24,21 @@
         }
         else if (info.Status == "In Progress")
         {
-            @*<button type="submit" value="@info.AccountId" onclick="completeAccount(@info.TimeLogId, 1, 4)">Complete</button>*@
             <button type="submit" value="@info.AccountId" onclick="showModal(@info.TimeLogId, @info.AccountId, 4)">Complete</button>
             <button type="submit" value="@info.AccountId" onclick="showModal(@info.TimeLogId, @info.AccountId, 3)">Pause</button>
         }
         else if (info.Status == "Paused")
         {
-                <button type="submit" value="@info.AccountId" onclick="pickAccount(@info.AccountId, 1)">Resume</button>
+            <button type="submit" value="@info.AccountId" onclick="pickAccount(@info.AccountId, 1)">Resume</button>
+        }
+    }
+
+    @helper CustomRenderingOfHistoryColumn(AccountInfoDto info)
+    {
+        if(info.ProgressHistory.Any())
+        {
+            var id="historyModal" + info.AccountId;
+            <button value="@info.AccountId" onclick="showHistory(@id)">History</button>
         }
     }
 
@@ -47,7 +55,8 @@
                     columns.Add(model => model.PickedOn).Titled("Picked On");
                     columns.Add(model => model.Status).Titled("Status").Filterable(true);
                     columns.Add(model => model.AccountId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfStatusColumn(model));
-                    
+                    columns.Add().Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfHistoryColumn(model));
+
                 }).WithPaging(20).Named("gridInfo").Sortable(true);
         }
     }
@@ -75,6 +84,38 @@
     </div>
 </div>
 
+@{
+    foreach (var account in Model.Accounts)
+    {
+        if(account.ProgressHistory.Count() > 0)
+        { 
+            var modalId = "historyModal" + account.AccountId;
+            <div id="@modalId" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h3 id="myModalLabel">@account.AccountName</h3>
+                        </div>
+                        <div class="modal-body">
+                            @Html.Grid(account.ProgressHistory).Columns(columns=>
+                            {
+                                columns.Add(model => model.UserName).Titled("Picked By");
+                                columns.Add(model => model.StartTime).Titled("Start Time");
+                                columns.Add(model => model.EndTime).Titled("End Time");
+                                columns.Add(model => model.Status).Titled("Status");
+                           })
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+
 <script type="text/javascript">
     function pickAccount(accountId, userId) {
         debugger;
@@ -86,7 +127,6 @@
         });
     }
 
-    //function completeAccount(accountId, timeLogId, statusId, comment) {
     function completeAccount() {
         debugger;
         var accountId = $('#hdnAccountId').val();
@@ -106,5 +146,10 @@
         $('#hdnTimeLogId').val(timeLogId);
         $('#hdnAccountId').val(accountId);
         $('#hdnStatusId').val(statusId);
+    }
+
+    function showHistory(id) {
+        debugger;
+        $('#'+id.id).modal('show');
     }
 </script>

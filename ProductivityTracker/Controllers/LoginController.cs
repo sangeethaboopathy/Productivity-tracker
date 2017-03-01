@@ -1,11 +1,8 @@
 ﻿using ProductivityTracker_Business;
+using ProductivityTracker_Helpers.Constants;
 using ProductivityTracker_Helpers.Contracts;
 using ProductivityTracker_Helpers.Enums;
 using ProductivityTracker_Models.ViewModels.Login;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProductivityTracker.Controllers
@@ -35,8 +32,9 @@ namespace ProductivityTracker.Controllers
                     var userDetailsExecutor = ExecutorFacade.GetUserDetailsInstance();
                     var userDetails = (UserDetails)userDetailsExecutor.GetUserDetails(emailId, password);
 
-                    Session["UserName"] = userDetails.UserName;
-                    Session["UserId"] = userDetails.UserId;
+                    Session[SessionConstants.User_Name] = userDetails.UserName;
+                    Session[SessionConstants.User_Id] = userDetails.UserId;
+                    Session[SessionConstants.Gender] = userDetails.Gender;
 
                     return RedirectToAction("Index", "Home");
                 }
