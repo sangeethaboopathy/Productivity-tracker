@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ProductivityTracker_Helpers.Constants
+@{
     ViewBag.Title = "_AppLayout";
 }
 
@@ -46,11 +47,18 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="~/Content/images/male.png" alt="..." class="img-circle profile_img">
+                            @if (((string)Session[SessionConstants.User_Name]) == "Male")
+                            {
+                                <img src="~/Content/images/male.png" alt="..." class="img-circle profile_img">
+                            }
+                            else
+                            {
+                                <img src="~/Content/images/female.png" alt="..." class="img-circle profile_img">
+                            }
                         </div>
                         <div class="profile_info">
                             <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <h2>@Session[SessionConstants.User_Name]</h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -98,7 +106,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/Content/images/male.png" alt="">John Doe
+                                    <img src="~/Content/images/male.png" alt="">
+                                    <span>@Session[SessionConstants.User_Name]</span>
                                     <span class="fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -129,6 +138,7 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="~/Scripts/custom.min.js"></script>
+    <script src="~/Scripts/application.js"></script>
 </body>
 
 </html>

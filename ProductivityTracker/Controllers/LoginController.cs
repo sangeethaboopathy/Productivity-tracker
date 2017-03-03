@@ -4,12 +4,15 @@ using ProductivityTracker_Helpers.Contracts;
 using ProductivityTracker_Helpers.Enums;
 using ProductivityTracker_Models.ViewModels.Login;
 using System.Web.Mvc;
+using ProductivityTracker_Business.Interface;
 
 namespace ProductivityTracker.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
+        private readonly ILoginExecutor _loginExecutor = ExecutorFacade.GetLoginInstance();
+        private readonly IUserDetailsExecutor _userDetailsExecutor= ExecutorFacade.GetUserDetailsInstance();
+
         public ActionResult Index()
         {
             string error = (string) TempData["Error"];
@@ -27,20 +30,14 @@ namespace ProductivityTracker.Controllers
 
         public ActionResult Login(string emailId, string password)
         {
-            BaseResponse response = null;
-            LoginResultVM result = new LoginResultVM();
-
-            var loginExecutor = ExecutorFacade.GetLoginInstance();
-
-            response = loginExecutor.VerifyLogin(emailId, password);
+            var response = _loginExecutor.VerifyLogin(emailId, password);
 
             if(!response.HasError)
             {
-                result = (LoginResultVM)response;
+                LoginResultVM result = (LoginResultVM) response;
                 if (result.LoginResult == LoginResultEnum.Success)
                 {
-                    var userDetailsExecutor = ExecutorFacade.GetUserDetailsInstance();
-                    var userDetails = (UserDetails) userDetailsExecutor.GetUserDetails(emailId, password);
+                    var userDetails = (UserDetails) _userDetailsExecutor.GetUserDetails(emailId, password);
 
                     Session[SessionConstants.User_Name] = userDetails.UserName;
                     Session[SessionConstants.User_Id] = userDetails.UserId;

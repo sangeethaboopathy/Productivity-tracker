@@ -18,14 +18,13 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Login
 
         public UserDetails Execute(string emailId, string password)
         {
-            var loginDetails = dbContext.UserLoginDetails.Where(x => x.EmailId == emailId && x.Password == password).First();
-            var userDetails = dbContext.UserPersonalDetails.Where(x => x.UserId == loginDetails.UserId).First();
+            var loginDetails = dbContext.UserLoginDetails.First(x => x.EmailId == emailId && x.Password == password);
+            var userDetails = dbContext.UserPersonalDetails.First(x => x.UserId == loginDetails.UserId);
 
             var info = new UserDetails
             {
                 UserId = loginDetails.UserId,
                 Email = loginDetails.EmailId,
-                Password = loginDetails.Password,
                 UserName = userDetails.FirstName,
                 Gender = userDetails.Gender
             };
