@@ -19,5 +19,9 @@ namespace ProductivityTracker_DataAccess.DomainModels
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Gender { get; set; }
     }
 }

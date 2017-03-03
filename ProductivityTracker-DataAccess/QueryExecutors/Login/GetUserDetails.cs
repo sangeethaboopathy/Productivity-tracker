@@ -26,7 +26,8 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Login
                 UserId = loginDetails.UserId,
                 Email = loginDetails.EmailId,
                 Password = loginDetails.Password,
-                UserName = userDetails.FirstName
+                UserName = userDetails.FirstName,
+                Gender = userDetails.Gender
             };
 
             return info;

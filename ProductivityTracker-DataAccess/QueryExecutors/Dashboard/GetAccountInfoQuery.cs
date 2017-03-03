@@ -29,7 +29,47 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
                     CustomId = item.CustomAccountId,
                     Status = item.Status,
                 };
-                var timelog = dbContext.AccountTimeLogDetails.Where(x => x.AccountId == item.AccountId).OrderByDescending(var => var.EndTime).FirstOrDefault();
+
+                accountInfo.ProgressHistory = new List<ProgressHistory>();
+                var history = dbContext.AccountTimeLogDetails.Where(x => x.AccountId == item.AccountId);
+                if(history!=null)
+                {
+                    foreach(var log in history)
+                    {
+                        var historyItem = new ProgressHistory
+                        {
+                            StartTime = log.StartTime,
+                            EndTime = log.EndTime,
+                            UserName = dbContext.UserPersonalDetails.FirstOrDefault(x => x.UserId == log.UserId).FirstName
+                        };
+
+                        if (log.Status != null)
+                        {
+                            switch (log.Status)
+                            {
+                                case 1:
+                                    historyItem.Status = "New";
+                                    break;
+                                case 2:
+                                    historyItem.Status = "In progress";
+                                    break;
+                                case 3:
+                                    historyItem.Status = "Paused";
+                                    break;
+                                case 4:
+                                    historyItem.Status = "Completed";
+                                    break;
+                                default:
+                                    historyItem.Status = "New";
+                                    break;
+                            }
+                        }
+
+                        accountInfo.ProgressHistory.Add(historyItem);
+                    }
+                }
+
+                var timelog = dbContext.AccountTimeLogDetails.Where(x => x.AccountId == item.AccountId).OrderByDescending(var => var.StartTime).FirstOrDefault();
 
                 if (timelog != null)
                 {
@@ -41,27 +81,7 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
 
                 info.Add(accountInfo);
             }
-
-            //var accountsList = (from accounts in dbContext.MarketingAccountDetails
-            //                    join timelog in timelogList on accounts.AccountId equals timelog.AccountId into subSet
-            //                    from rightJoin in subSet.DefaultIfEmpty()
-            //                    orderby accounts.StatusInt, accounts.StartDate
-            //                    select new AccountInfoDto
-            //                    {
-            //                        StartDate = accounts.StartDate,
-            //                        AccountId = accounts.AccountId,
-            //                        AccountName = accounts.AccountName,
-            //                        CompletedOn = rightJoin != null ? rightJoin.EndTime : null,
-            //                        CreatedOn = accounts.CreatedOn,
-            //                        CustomId = accounts.CustomAccountId,
-            //                        PickedBy = rightJoin != null ? dbContext.UserPersonalDetails.FirstOrDefault(x => x.UserId == rightJoin.UserId).FirstName : null,
-            //                        PickedOn = rightJoin != null ? (DateTime?)rightJoin.StartTime : null,
-            //                        Status = accounts.Status,
-            //                        TimeLogId = rightJoin != null ? rightJoin.AccountTimeLogId : 0
-            //                    }).ToList();
-
-            //return accountsList;
-
+            
             return info.ToList();
         }
     }

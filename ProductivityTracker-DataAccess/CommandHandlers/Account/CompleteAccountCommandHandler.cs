@@ -31,6 +31,7 @@ namespace ProductivityTracker_DataAccess.CommandHandlers.Account
                 {
                     timeLog.EndTime = DateTime.Now;
                     timeLog.Comment = command.Comment;
+                    timeLog.Status = command.StatusInt;
                 }
 
                 dbContext.SaveChanges();
