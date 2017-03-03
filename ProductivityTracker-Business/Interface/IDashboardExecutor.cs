@@ -10,6 +10,6 @@ namespace ProductivityTracker_Business.Interface
 {
     public interface IDashboardExecutor : IBaseExecutor
     {
-        BaseResponse GetAccountDetails();
+        BaseResponse GetAccountDetails(int projectId);
     }
 }

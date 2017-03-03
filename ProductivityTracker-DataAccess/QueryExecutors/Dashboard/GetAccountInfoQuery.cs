@@ -14,11 +14,12 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
         {
         }
 
-        public List<AccountInfoDto> Execute()
+        public List<AccountInfoDto> Execute(int projectId)
         {
             List<AccountInfoDto> info = new List<AccountInfoDto>();
+            var accounts = dbContext.MarketingAccountDetails.Where(var => (var.ProjectId ?? 0) == projectId);
 
-            foreach (var item in dbContext.MarketingAccountDetails)
+            foreach (var item in accounts)
             {
                 var accountInfo = new AccountInfoDto
                 {

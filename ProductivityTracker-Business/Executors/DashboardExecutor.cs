@@ -13,11 +13,11 @@ namespace ProductivityTracker_Business.Executors
 {
     public class DashboardExecutor : BaseExecutors, IDashboardExecutor
     {
-        public BaseResponse GetAccountDetails()
+        public BaseResponse GetAccountDetails(int projectId)
         {
             try
             {
-                var accountsList = queryFactory.ResolveQuery<IGetAccountInfoQuery>().Execute();
+                var accountsList = queryFactory.ResolveQuery<IGetAccountInfoQuery>().Execute(projectId);
                 return new AccountInfoViewModel
                 {
                     HasError = false,

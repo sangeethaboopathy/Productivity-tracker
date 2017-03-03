@@ -43,11 +43,13 @@
   <ItemGroup>
     <Compile Include="Dto\Account\AccountUploadDto.cs" />
     <Compile Include="Dto\Dashboard\AccountInfoDto.cs" />
+    <Compile Include="Dto\Projects\ProjectDropdownDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Dashboard\AccountInfoViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginResultVM.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\Login\UserDetails.cs" />
+    <Compile Include="ViewModels\Project\ProjectDropdownModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

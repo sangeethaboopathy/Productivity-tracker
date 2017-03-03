@@ -67,6 +67,7 @@
     <Compile Include="QueryExecutors\Dashboard\GetAccountInfoQuery.cs" />
     <Compile Include="QueryExecutors\Login\GetUserDetails.cs" />
     <Compile Include="QueryExecutors\Login\VerifyLogin.cs" />
+    <Compile Include="QueryExecutors\Project\GetProjectsForDropdownQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

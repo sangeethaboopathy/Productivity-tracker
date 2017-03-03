@@ -23,7 +23,6 @@ namespace ProductivityTracker_Business.Executors
                     UserId = result.UserId,
                     UserName = result.UserName,
                     Email = result.Email,
-                    Password = result.Password,
                     Gender = result.Gender
                 };
             }

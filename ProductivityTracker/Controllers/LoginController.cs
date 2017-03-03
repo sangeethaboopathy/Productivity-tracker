@@ -4,43 +4,56 @@ using ProductivityTracker_Helpers.Contracts;
 using ProductivityTracker_Helpers.Enums;
 using ProductivityTracker_Models.ViewModels.Login;
 using System.Web.Mvc;
+using ProductivityTracker_Business.Interface;
 
 namespace ProductivityTracker.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
+        private readonly ILoginExecutor _loginExecutor = ExecutorFacade.GetLoginInstance();
+        private readonly IUserDetailsExecutor _userDetailsExecutor= ExecutorFacade.GetUserDetailsInstance();
+
         public ActionResult Index()
         {
+            string error = (string) TempData["Error"];
+            switch (error)
+            {
+                case "FailedLogin":
+                    ViewBag.Error = "Invalid credentials. Please try again.";
+                    break;
+                case "InternalServerError":
+                    ViewBag.Error = "Internal server error. Please contact Administrator.";
+                    break;
+            }
             return View();
         }
 
         public ActionResult Login(string emailId, string password)
         {
-            BaseResponse response = null;
-            LoginResultVM result = new LoginResultVM();
-
-            var loginExecutor = ExecutorFacade.GetLoginInstance();
-
-            response = loginExecutor.VerifyLogin(emailId, password);
+            var response = _loginExecutor.VerifyLogin(emailId, password);
 
             if(!response.HasError)
             {
-                result = (LoginResultVM)response;
+                LoginResultVM result = (LoginResultVM) response;
                 if (result.LoginResult == LoginResultEnum.Success)
                 {
-                    var userDetailsExecutor = ExecutorFacade.GetUserDetailsInstance();
-                    var userDetails = (UserDetails)userDetailsExecutor.GetUserDetails(emailId, password);
+                    var userDetails = (UserDetails) _userDetailsExecutor.GetUserDetails(emailId, password);
 
                     Session[SessionConstants.User_Name] = userDetails.UserName;
                     Session[SessionConstants.User_Id] = userDetails.UserId;
                     Session[SessionConstants.Gender] = userDetails.Gender;
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Accounts", "Accounts");
+                }
+                else
+                {
+                    TempData["Error"] = "FailedLogin";
+                    return RedirectToAction("Index", "Login");
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            TempData["Error"] = "InternalServerError";
+            return RedirectToAction("Index", "Login");
         }
     }
 }

@@ -4,10 +4,12 @@ using ProductivityTracker_DataAccess.CommandHandlers.Account;
 using ProductivityTracker_DataAccess.Context;
 using ProductivityTracker_DataAccess.QueryExecutors.Dashboard;
 using ProductivityTracker_DataAccess.QueryExecutors.Login;
+using ProductivityTracker_DataAccess.QueryExecutors.Project;
 using ProductivityTracker_DataModel.Commands.Account;
 using ProductivityTracker_DataModel.Core;
 using ProductivityTracker_DataModel.Queries.Dashboard;
 using ProductivityTracker_DataModel.Queries.Login;
+using ProductivityTracker_DataModel.Queries.Projects;
 
 #endregion
 
@@ -31,6 +33,8 @@ namespace ProductivityTracker_Business.IoC
             Bind<IVerifyLogin>().To<VerifyLogin>().InTransientScope();
             Bind<IGetAccountInfoQuery>().To<GetAccountInfoQuery>().InTransientScope();
             Bind<IGetUserDetails>().To<GetUserDetails>().InTransientScope();
+
+            Bind<IGetProjectsForDropdownQuery>().To<GetProjectsForDropdownQuery>().InTransientScope();
             #endregion
 
             #region Commands
