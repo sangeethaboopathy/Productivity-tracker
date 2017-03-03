@@ -105,6 +105,23 @@
                                 columns.Add(model => model.EndTime).Titled("End Time");
                                 columns.Add(model => model.Status).Titled("Status");
                            })
+                            @{ 
+                                var timeSpentDetails = from historyDetails in account.ProgressHistory
+                                    group historyDetails by historyDetails.UserName into detail
+                                    select new
+                                    {
+                                        Assignee = detail.Key,
+                                        TimeSpent = Convert.ToInt32(detail.Sum(x => x.EndTime!=null?(x.EndTime - x.StartTime).Value.TotalMinutes:
+                                            (DateTime.UtcNow - x.StartTime).TotalMinutes))
+                                    };
+
+                                <span><h4>Time spent</h4></span>
+                                @Html.Grid(timeSpentDetails).Columns(columns=>
+                                {
+                                    columns.Add(x=>x.Assignee).Titled("Asignee");
+                                    columns.Add(x=>x.TimeSpent).Titled("Time Spent(In minutes)");
+                                })
+                            }
                         </div>
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
