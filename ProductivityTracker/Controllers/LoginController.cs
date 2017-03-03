@@ -15,6 +15,16 @@ namespace ProductivityTracker.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            string error = (string) TempData["Error"];
+            switch (error)
+            {
+                case "FailedLogin":
+                    ViewBag.Error = "Invalid credentials. Please try again.";
+                    break;
+                case "InternalServerError":
+                    ViewBag.Error = "Internal server error. Please contact Administrator.";
+                    break;
+            }
             return View();
         }
 
@@ -33,16 +43,22 @@ namespace ProductivityTracker.Controllers
                 if (result.LoginResult == LoginResultEnum.Success)
                 {
                     var userDetailsExecutor = ExecutorFacade.GetUserDetailsInstance();
-                    var userDetails = (UserDetails)userDetailsExecutor.GetUserDetails(emailId, password);
+                    var userDetails = (UserDetails) userDetailsExecutor.GetUserDetails(emailId, password);
 
                     Session["UserName"] = userDetails.UserName;
                     Session["UserId"] = userDetails.UserId;
 
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    TempData["Error"] = "FailedLogin";
+                    return RedirectToAction("Index", "Login");
+                }
             }
 
-            return RedirectToAction("Index", "Home");
+            TempData["Error"] = "InternalServerError";
+            return RedirectToAction("Index", "Login");
         }
     }
 }

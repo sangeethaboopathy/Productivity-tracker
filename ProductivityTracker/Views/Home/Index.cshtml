@@ -1,13 +1,12 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "../Shared/_AppLayout.cshtml";
 }
+
 @model ProductivityTracker_Models.ViewModels.Dashboard.AccountInfoViewModel
 
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
-<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <div>
     <input type="file" id="btnSelectFile" onchange="checkFileType()" />
     <input type="button" id="btnUpload" value="Upload Files" />
@@ -18,46 +17,45 @@
 </div>
 <script>
 
-$(document).ready(function(){
-    $('#btnUpload').click(function () {
-        if (window.FormData !== undefined) {
+    $(document).ready(function () {
+        $('#btnUpload').click(function () {
+            if (window.FormData !== undefined) {
 
-            var fileUpload = $("#btnSelectFile").get(0);
-            var files = fileUpload.files;
+                var fileUpload = $("#btnSelectFile").get(0);
+                var files = fileUpload.files;
 
-            var fileData = new FormData();
+                var fileData = new FormData();
 
-            for (var i = 0; i < files.length; i++) {
-                fileData.append(files[i].name, files[i]);
-            }
-        
-            $.ajax({
-                url: '/Home/UploadFiles',
-                type: "POST",
-                contentType: false, // Not to set any content header
-                processData: false, // Not to process data
-                data: fileData,
-                success: function (result) {
-                    $("#accountInfo").html(result);
-                    $('#btnSelectFile').val("");
-                    alert('Upload successful!');
-                },
-                error: function (err) {                    
-                    alert(err.statusText);
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
                 }
-            });
-        } else {
-            alert("FormData is not supported.");
-        }
-    });
-});
 
-function checkFileType()
-{
-    var ext = $('#btnSelectFile').val().split('.').pop().toLowerCase();
-    if ($.inArray(ext, ['tsv']) == -1) {
-        alert('invalid extension!');
-        $('#btnSelectFile').val("");
+                $.ajax({
+                    url: '/Home/UploadFiles',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        $("#accountInfo").html(result);
+                        $('#btnSelectFile').val("");
+                        alert('Upload successful!');
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        });
+    });
+
+    function checkFileType() {
+        var ext = $('#btnSelectFile').val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['tsv']) == -1) {
+            alert('invalid extension!');
+            $('#btnSelectFile').val("");
+        }
     }
-}
 </script>  
