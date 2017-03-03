@@ -29,5 +29,10 @@ namespace ProductivityTracker_Business
         {
             return new UserDetailsExecutor();
         }
+
+        public static IProjectExecutor GetProjectsInstance()
+        {
+            return new ProjectExecutor();
+        }
     }
 }

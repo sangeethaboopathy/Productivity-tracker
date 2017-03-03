@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductivityTracker_Helpers.Contracts;
-using ProductivityTracker_Models.ViewModels.Dashboard;
 
 namespace ProductivityTracker_Business.Interface
 {
-    public interface IDashboardExecutor : IBaseExecutor
+    public interface IProjectExecutor : IBaseExecutor
     {
-        BaseResponse GetAccountDetails(int projectId);
+        BaseResponse GetProjectsForDropdown();
     }
 }

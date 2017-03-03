@@ -4,29 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductivityTracker_Business.Interface;
-using ProductivityTracker_Business.Executors;
-using ProductivityTracker_DataModel.Queries.Dashboard;
+using ProductivityTracker_DataModel.Queries.Projects;
 using ProductivityTracker_Helpers.Contracts;
-using ProductivityTracker_Models.ViewModels.Dashboard;
+using ProductivityTracker_Models.ViewModels.Project;
 
 namespace ProductivityTracker_Business.Executors
 {
-    public class DashboardExecutor : BaseExecutors, IDashboardExecutor
+    public class ProjectExecutor : BaseExecutors, IProjectExecutor
     {
-        public BaseResponse GetAccountDetails(int projectId)
+        public BaseResponse GetProjectsForDropdown()
         {
             try
             {
-                var accountsList = queryFactory.ResolveQuery<IGetAccountInfoQuery>().Execute(projectId);
-                return new AccountInfoViewModel
+                var result = queryFactory.ResolveQuery<IGetProjectsForDropdownQuery>().Execute();
+                return new ProjectDropdownModel
                 {
                     HasError = false,
-                    Accounts = accountsList
+                    Projects = result
                 };
             }
             catch (Exception ex)
             {
-                return new AccountInfoViewModel
+                return new ProjectDropdownModel
                 {
                     HasError = true
                 };

@@ -54,6 +54,7 @@
     <Compile Include="Queries\Dashboard\IGetAccountInfoQuery.cs" />
     <Compile Include="Queries\Login\IGetUserDetails.cs" />
     <Compile Include="Queries\Login\IVerifyLogin.cs" />
+    <Compile Include="Queries\Projects\IGetProjectsForDropdownQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProductivityTracker-Helpers\ProductivityTracker-Helpers.csproj">

@@ -19,6 +19,8 @@
     <link href="~/Content/css/docs.min.css" rel="stylesheet" />
     <link href="~/Content/css/shCoreDefault.css" rel="stylesheet" />
     <link href="~/Content/css/custom.min.css" rel="stylesheet" />
+    
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 </head>
 
 <!--[if lt IE 9]>
@@ -47,7 +49,7 @@
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            @if (((string)Session[SessionConstants.User_Name]) == "Male")
+                            @if (((string)Session[SessionConstants.Gender]) == "Male")
                             {
                                 <img src="~/Content/images/male.png" alt="..." class="img-circle profile_img">
                             }
@@ -106,7 +108,16 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/Content/images/male.png" alt="">
+                                    
+                                    @if (((string)Session[SessionConstants.Gender]) == "Male")
+                                    {
+                                        <img src="~/Content/images/male.png" alt="..." >
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/images/female.png" alt="...">
+                                    }
+
                                     <span>@Session[SessionConstants.User_Name]</span>
                                     <span class="fa fa-angle-down"></span>
                                 </a>
@@ -133,7 +144,6 @@
 
     <!-- jQuery -->
     <script async="" src="https://www.google-analytics.com/analytics.js"></script>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <!-- Bootstrap -->
     <script src="~/Scripts/bootstrap.min.js"></script>
     <!-- Custom Theme Scripts -->

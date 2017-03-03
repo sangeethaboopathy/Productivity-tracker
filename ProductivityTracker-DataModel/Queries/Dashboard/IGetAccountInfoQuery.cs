@@ -10,6 +10,6 @@ namespace ProductivityTracker_DataModel.Queries.Dashboard
 {
     public interface IGetAccountInfoQuery : IQuery
     {
-        List<AccountInfoDto> Execute();
+        List<AccountInfoDto> Execute(int projectId);
     }
 }
