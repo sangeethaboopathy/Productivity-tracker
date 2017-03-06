@@ -2,10 +2,7 @@
 @using ProductivityTracker_Models.Dto.Dashboard;
 @using GridMvc.Html
 
-@{ 
-    Layout = null;
-}
-
+<link href="~/css/style.css" rel="stylesheet" />
 @*<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />*@
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
 
@@ -44,18 +41,18 @@
         if (Model.Accounts != null)
         {
             @Html.Grid(Model.Accounts).Columns(
-                columns =>
-                {
-                    columns.Add(model => model.CustomId).Titled("CID-AID").Filterable(true);
-                    columns.Add(model => model.AccountName).Titled("Account Name").Filterable(true);
-                    columns.Add(model => model.StartDate).Titled("Renewal Start Date").Filterable(true);
-                    columns.Add(model => model.PickedBy).Titled("Picked By").Filterable(true);
-                    columns.Add(model => model.PickedOn).Titled("Picked On");
-                    columns.Add(model => model.Status).Titled("Status").Filterable(true);
-                    columns.Add(model => model.AccountId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfStatusColumn(model));
-                    columns.Add().Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfHistoryColumn(model));
+                     columns =>
+                     {
+                         columns.Add(model => model.CustomId).Titled("CID-AID").Filterable(true);
+                         columns.Add(model => model.AccountName).Titled("Account Name").Filterable(true);
+                         columns.Add(model => model.StartDate).Titled("Start Date").Filterable(true);
+                         columns.Add(model => model.PickedBy).Titled("Picked By").Filterable(true);
+                         columns.Add(model => model.PickedOn).Titled("Picked On");
+                         columns.Add(model => model.Status).Titled("Status").Filterable(true);
+                         columns.Add(model => model.AccountId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfStatusColumn(model));
+                         columns.Add().Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfHistoryColumn(model));
 
-                }).WithPaging(20).Named("gridInfo").Sortable(true);
+                     }).WithPaging(10).Named("gridInfo");
         }
     }
 </div>
@@ -72,6 +69,7 @@
                 <input type="hidden" id="hdnAccountId" />
                 <input type="hidden" id="hdnUserId" />
                 <input type="hidden" id="hdnStatusId" />
+                <input type="hidden" id="hdnProjectId" />
                 Enter comments: <input type="text" id="txtComments" />
             </div>
             <div class="modal-footer">
@@ -110,7 +108,7 @@
                                     {
                                         Assignee = detail.Key,
                                         TimeSpent = Convert.ToInt32(detail.Sum(x => x.EndTime!=null?(x.EndTime - x.StartTime).Value.TotalMinutes:
-                                            (DateTime.UtcNow - x.StartTime).TotalMinutes))
+                                            (DateTime.Now - x.StartTime).TotalMinutes))
                                     };
 
                                 <span><h4>Time spent</h4></span>

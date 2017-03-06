@@ -11,7 +11,7 @@ namespace ProductivityTracker_Models.Dto.Dashboard
         public int AccountId { get; set; }
         public string CustomId { get; set; }
         public string AccountName { get; set; }
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
         public string PickedBy { get; set; }
         public DateTime? PickedOn { get; set; }
         public DateTime? CompletedOn { get; set; }
