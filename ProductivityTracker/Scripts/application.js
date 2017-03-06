@@ -44,6 +44,7 @@ function completeAccount() {
 function showModal(timeLogId, accountId, statusId) {
     var projectId = parseInt($('#project_select').val());
     $('#commentsModal').modal('show');
+    $('div').removeClass("modal-backdrop in");
     $('#hdnTimeLogId').val(timeLogId);
     $('#hdnAccountId').val(accountId);
     $('#hdnStatusId').val(statusId);
@@ -52,6 +53,7 @@ function showModal(timeLogId, accountId, statusId) {
 
 function showHistory(id) {
     $('#' + id.id).modal('show');
+    $('div').removeClass("modal-backdrop in");
 }
 
 function PopulateAccountsForProject() {
