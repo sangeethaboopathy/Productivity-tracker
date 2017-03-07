@@ -1,80 +1,142 @@
 ﻿@model ProductivityTracker_Models.ViewModels.Dashboard.AccountInfoViewModel
-@using ProductivityTracker_Models.Dto.Dashboard;
-@using GridMvc.Html
 
 <link href="~/css/style.css" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
-<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
 
-<div class="code-cut">
-    @helper CustomRenderingOfStatusColumn(AccountInfoDto info)
-    {
-        if (info.Status == "New")
-        {
-            <button type="submit" value="@info.AccountId" onclick="pickAccount(@info.AccountId, 1)">Pick</button>
-        }
-        else if (info.Status == "Completed")
-        {
-            <button type="submit" disabled value="@info.AccountId">Completed</button>
-        }
-        else if (info.Status == "In Progress")
-        {
-            <button type="submit" value="@info.AccountId" onclick="showModal(@info.TimeLogId, @info.AccountId, 4)">Complete</button>
-            <button type="submit" value="@info.AccountId" onclick="showModal(@info.TimeLogId, @info.AccountId, 3)">Pause</button>
-        }
-        else if (info.Status == "Paused")
-        {
-            <button type="submit" value="@info.AccountId" onclick="pickAccount(@info.AccountId, 1)">Resume</button>
-        }
-    }
+<div class="accounts-info-table-container">
+    <table class="accounts-info-table row-border hover">
+        <thead>
+            <tr>
+                <th style="width: 3%">
+                    <span>S.No</span>
+                </th>
+                <th>
+                    <span>CID-AID</span>
+                </th>
+                <th>
+                    <span>Account Name</span>
+                </th>
+                <th>
+                    <span>Start Date</span>
+                </th>
+                <th>
+                    <span>Picked By</span>
+                </th>
+                <th>
+                    <span>Picked On</span>
+                </th>
+                <th>
+                    <span>Status</span>
+                </th>
+                <th>
+                    <span>Actions</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var count = 1;
+            }
+            @foreach (var account in Model.Accounts)
+            {
+                <tr>
+                    <td>
+                        <span>@(count++)</span>
+                    </td>
+                    <td>
+                        <span>@account.CustomId</span>
+                    </td>
+                    <td>
+                        <span>@account.AccountName</span>
+                    </td>
+                    <td>
+                        <span>@account.StartDate</span>
+                    </td>
+                    <td>
+                        <span>@account.PickedBy</span>
+                    </td>
+                    <td>
+                        <div>
+                            @if (account.PickedOn != null)
+                            {
+                                <div style="margin-bottom: 7px;">
+                                    @account.PickedOn.Value.ToString("dd MMMM yy")
+                                </div>
+                                <div>
+                                    @account.PickedOn.Value.ToString("hh:mm tt")
+                                </div>
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <span>@account.Status</span>
+                    </td>
+                    <td>
+                        <span>
+                            @if (account.Status == "New")
+                            {
+                                <button data-toggle="tooltip" title="Pick" class="btn btn-default account-action-button" type="submit" value="@account.AccountId" onclick="pickAccount(@account.AccountId, 1)">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            }
+                            @*else if (account.Status == "Completed")
+                                {
+                                    <button class="btn btn-default account-action-button" type="submit" disabled value="@account.AccountId">Completed</button>
+                                }*@
+                            else if (account.Status == "In Progress")
+                            {
+                                <button data-toggle="tooltip" title="Cancel" class="btn btn-default account-action-button" type="submit" value="@account.AccountId" onclick="showModal(@account.TimeLogId, @account.AccountId, 5)">
+                                    <i class="fa fa-times"></i>
+                                </button>
 
-    @helper CustomRenderingOfHistoryColumn(AccountInfoDto info)
-    {
-        if(info.ProgressHistory.Any())
-        {
-            var id="historyModal" + info.AccountId;
-            <button value="@info.AccountId" onclick="showHistory(@id)">History</button>
-        }
-    }
+                                <button data-toggle="tooltip" title="Pause" class="btn btn-default account-action-button" type="submit" value="@account.AccountId" onclick="showModal(@account.TimeLogId, @account.AccountId, 3)">
+                                    <i class="fa fa-pause"></i>
+                                </button>
 
-    @{ 
-        if (Model.Accounts != null)
-        {
-            @Html.Grid(Model.Accounts).Columns(
-                     columns =>
-                     {
-                         columns.Add(model => model.CustomId).Titled("CID-AID").Filterable(true);
-                         columns.Add(model => model.AccountName).Titled("Account Name").Filterable(true);
-                         columns.Add(model => model.StartDate).Titled("Start Date").Filterable(true);
-                         columns.Add(model => model.PickedBy).Titled("Picked By").Filterable(true);
-                         columns.Add(model => model.PickedOn).Titled("Picked On");
-                         columns.Add(model => model.Status).Titled("Status").Filterable(true);
-                         columns.Add(model => model.AccountId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfStatusColumn(model));
-                         columns.Add().Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfHistoryColumn(model));
+                                <button data-toggle="tooltip" title="Complete" class="btn btn-default account-action-button" type="submit" value="@account.AccountId" onclick="showModal(@account.TimeLogId, @account.AccountId, 4)">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            }
+                            else if (account.Status == "Paused")
+                            {
+                                <button data-toggle="tooltip" title="Resume" class="btn btn-default account-action-button" type="submit" value="@account.AccountId" onclick="pickAccount(@account.AccountId, 1)">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            }
 
-                     }).WithPaging(10).Named("gridInfo");
-        }
-    }
+                            @if (account.ProgressHistory.Any())
+                            {
+                                var id = "historyModal" + account.AccountId;
+                                <button data-toggle="tooltip" title="History" class="btn btn-default account-action-button" value="@account.AccountId" onclick="showHistory(@id)">
+                                    <i class="fa fa-history"></i>
+                                </button>
+                            }
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 <div id="commentsModal" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog comments-modal">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3 id="myModalLabel">Comments</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="margin-bottom: 40px">
                 <input type="hidden" id="hdnTimeLogId" />
                 <input type="hidden" id="hdnAccountId" />
                 <input type="hidden" id="hdnUserId" />
                 <input type="hidden" id="hdnStatusId" />
                 <input type="hidden" id="hdnProjectId" />
-                Enter comments: <input type="text" id="txtComments" />
+                <label>Enter comments: </label>
+                <input type="text" class="form-control" id="txtComments" />
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-primary" data-dismiss="modal" onclick="completeAccount()">Save changes</button>
+                <button class="btn" data-dismiss="modal" onclick="completeAccount()">Save changes</button>
             </div>
         </div>
     </div>
@@ -83,41 +145,145 @@
 @{
     foreach (var account in Model.Accounts)
     {
-        if(account.ProgressHistory.Count() > 0)
-        { 
+        if (account.ProgressHistory.Count() > 0)
+        {
             var modalId = "historyModal" + account.AccountId;
-            <div id="@modalId" class="modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+            <div id="@modalId" class="modal history-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" style="width: 60%;">  
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">×</button>
                             <h3 id="myModalLabel">@account.AccountName</h3>
                         </div>
                         <div class="modal-body">
-                            @Html.Grid(account.ProgressHistory).Columns(columns=>
-                            {
-                                columns.Add(model => model.UserName).Titled("Picked By");
-                                columns.Add(model => model.StartTime).Titled("Start Time");
-                                columns.Add(model => model.EndTime).Titled("End Time");
-                                columns.Add(model => model.Status).Titled("Status");
-                           })
-                            @{ 
-                                var timeSpentDetails = from historyDetails in account.ProgressHistory
-                                    group historyDetails by historyDetails.UserName into detail
-                                    select new
-                                    {
-                                        Assignee = detail.Key,
-                                        TimeSpent = Convert.ToInt32(detail.Sum(x => x.EndTime!=null?(x.EndTime - x.StartTime).Value.TotalMinutes:
-                                            (DateTime.Now - x.StartTime).TotalMinutes))
-                                    };
 
-                                <span><h4>Time spent</h4></span>
-                                @Html.Grid(timeSpentDetails).Columns(columns=>
-                                {
-                                    columns.Add(x=>x.Assignee).Titled("Asignee");
-                                    columns.Add(x=>x.TimeSpent).Titled("Time Spent(In minutes)");
-                                })
+                            <div class="account-history-container">
+                                <div class="heading2">
+                                    <h2 style="margin-bottom: 0;">
+                                        Timeline
+                                    </h2>
+                                </div>
+
+                                <table class="account-history-table row-border hover" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 35px">
+                                                <span>S.No</span>
+                                            </th>
+                                            <th style="width: 100px">
+                                                <span>Asignee</span>
+                                            </th>
+                                            <th style="width: 100px">
+                                                <span>Picked On</span>
+                                            </th>
+                                            <th style="width: 150px">
+                                                <span>Paused/Completed On</span>
+                                            </th>
+                                            <th style="width: 80px">
+                                                <span>Status</span>
+                                            </th>
+                                            <th style="width: 150px">
+                                                <span>Comments</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var logCount = 1;
+                                        }
+                                        @foreach (var log in account.ProgressHistory)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span>@(logCount++)</span>
+                                                </td>
+                                                <td>
+                                                    <span>@log.UserName</span>
+                                                </td>
+                                                <td>
+                                                    <div style="margin-bottom: 7px;">
+                                                        @log.StartTime.ToString("dd MMMM yy")
+                                                    </div>
+                                                    <div>
+                                                        @log.StartTime.ToString("hh:mm tt")
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        @if (log.EndTime != null)
+                                                        {
+                                                            <div style="margin-bottom: 7px;">
+                                                                @log.EndTime.Value.ToString("dd MMMM yy")
+                                                            </div>
+                                                            <div>
+                                                                @log.EndTime.Value.ToString("hh:mm tt")
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span>@log.Status</span>
+                                                </td>
+                                                <td>
+                                                    <span>@log.Comments</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            @{
+                                var timeSpentDetails = from historyDetails in account.ProgressHistory
+                                                       group historyDetails by historyDetails.UserName
+                                        into detail
+                                                       select new
+                                                       {
+                                                           Assignee = detail.Key,
+                                                           TimeSpent = Convert.ToInt32(detail.Sum(x => x.EndTime != null ? (x.EndTime - x.StartTime).Value.TotalMinutes :
+                                                               (DateTime.Now - x.StartTime).TotalMinutes))
+                                                       };
+                                var userLogCount = 1;
                             }
+                            <div class="account-user-log-container">
+                                <div class="heading2">
+                                    <h2 style="margin-bottom: 0;">
+                                        Time Spent
+                                    </h2>
+                                </div>
+
+                                <table class="account-user-log-table row-border hover" style="width: 50%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span>S.No</span>
+                                            </th>
+                                            <th>
+                                                <span>Asignee</span>
+                                            </th>
+                                            <th>
+                                                <span>Time(min)</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in timeSpentDetails)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <span>@(count++)</span>
+                                                </td>
+                                                <td>
+                                                    <span>@user.Assignee</span>
+                                                </td>
+                                                <td>
+                                                    <span>@user.TimeSpent</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -125,6 +291,34 @@
                     </div>
                 </div>
             </div>
-        }
-    }
+                                    }
+                                }
 }
+
+
+<script>
+    $(document).ready(function () {
+        $('.accounts-info-table').DataTable({
+            "pageLength": 20,
+            columnDefs: [
+            {
+                targets: [0, 1, 2],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+            ]
+        });
+
+        $('.account-user-log-table, .account-history-table').DataTable({
+            "bSort": false,
+            "searching": false,
+            "bPaginate": false,
+            "lengthChange": false,
+            columnDefs: [
+            {
+                targets: [0, 1, 2],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+            ]
+        });
+    });
+</script>

@@ -35,7 +35,7 @@ namespace ProductivityTracker.Controllers
                         byte[] binData = b.ReadBytes((int)file.InputStream.Length);
 
                         string result = System.Text.Encoding.UTF8.GetString(binData);
-                        response = _accountExecutor.UploadAccountsInfo(result, 1);
+                        response = _accountExecutor.UploadAccountsInfo(result, 1, projectId);
                     }
                 }
                 catch (Exception ex)

@@ -12,5 +12,6 @@ namespace ProductivityTracker_DataModel.Commands.Account
     {
         public List<AccountUploadDto> Accounts { get; set; }
         public int UserId { get; set; }
+        public int ProjectId { get; set; }
     }
 }

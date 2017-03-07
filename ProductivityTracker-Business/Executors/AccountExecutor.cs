@@ -12,7 +12,7 @@ namespace ProductivityTracker_Business.Executors
 {
     public class AccountExecutor : BaseExecutors, IAccountExecutor
     {
-        public BaseResponse UploadAccountsInfo(string fileContent, int userId)
+        public BaseResponse UploadAccountsInfo(string fileContent, int userId, int projectId)
         {
             try
             {
@@ -36,7 +36,8 @@ namespace ProductivityTracker_Business.Executors
                 commandsFactory.ExecuteCommand(new UploadAccountsCommand
                 {
                     UserId = userId,
-                    Accounts = accountsList
+                    Accounts = accountsList,
+                    ProjectId = projectId
                 });
 
                 return new BaseResponse
