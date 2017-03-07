@@ -1,12 +1,62 @@
-﻿
+﻿@model ProductivityTracker_Models.ViewModels.Project.ProjectDetailsViewModel
+@using GridMvc.Html
+@using ProductivityTracker_Models.Dto.Projects
+
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
 }
 
+<link href="~/css/style.css" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
 
 <div>
+    @helper CustomRenderingOfProjectId(ProjectDropdownDto info)
+    {
+        if (info != null)
+        {
+            <a onclick="viewProjectAccounts(@info.ProjectId)">View details</a>
+        }
+    }
 
+    @Html.Grid(Model.Projects).Columns(
+        columns =>
+            {
+                columns.Add(model => model.ProjectName).Titled("Project Name").Filterable(true);
+                columns.Add(model => model.ProjectId).Titled("").Encoded(false).Sanitized(false).RenderValueAs(model => CustomRenderingOfProjectId(model));
+
+            }).WithPaging(10).Named("projectInfo")
 </div>
+
+<div>
+    <span> </span>
+    <span> </span>
+</div>
+
+<div id="divAddNewProject">
+    <span class="col-md-2">
+        Project name: 
+    </span>
+    <span class="col-md-4">
+        <input type="text" class="form-control" id="txtProjectName" />
+    </span>
+    <span class="col-md-6">
+        <button id="btnAddNewProject" onclick="addNewProject()">Add</button>
+    </span>
+</div>
+
+<script type="text/javascript">
+    function viewProjectAccounts(projectId) {
+
+    }
+
+    function addNewProject() {
+        var projectName = $("#txtProjectName").val();
+
+        if (projectName === '' || projectName === ' ') {
+            alert("Enter a valid project name!");
+            return;
+        }
+    }
+</script>

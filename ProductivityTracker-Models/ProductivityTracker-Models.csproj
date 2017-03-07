@@ -49,6 +49,7 @@
     <Compile Include="ViewModels\Login\LoginResultVM.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\Login\UserDetails.cs" />
+    <Compile Include="ViewModels\Project\ProjectDetailsViewModel.cs" />
     <Compile Include="ViewModels\Project\ProjectDropdownModel.cs" />
   </ItemGroup>
   <ItemGroup />

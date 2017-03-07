@@ -43,7 +43,7 @@ namespace ProductivityTracker.Controllers
                     Session[SessionConstants.User_Id] = userDetails.UserId;
                     Session[SessionConstants.Gender] = userDetails.Gender;
 
-                    return RedirectToAction("Accounts", "Accounts");
+                    return RedirectToAction("Index", "Projects");
                 }
                 else
                 {
