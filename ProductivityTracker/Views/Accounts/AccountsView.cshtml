@@ -43,7 +43,7 @@
     </div>
 </div>
 
-<div class="accounts-list-container">
+<div class="accounts-list-container" id="accountInfo">
 
 </div>
 
@@ -63,7 +63,7 @@
                 }
 
                 $.ajax({
-                    url: '/Home/UploadFiles',
+                    url: '/Accounts/UploadFiles',
                     type: "POST",
                     contentType: false, // Not to set any content header
                     processData: false, // Not to process data

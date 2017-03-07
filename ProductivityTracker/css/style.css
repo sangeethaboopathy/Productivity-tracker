@@ -11,7 +11,7 @@
  */
 
 body {
-  padding-top: 60px;
+  background: #f7f7f7;
 }
 
 .modal{
@@ -42,3 +42,15 @@ body {
 }
 
 .modal-body {padding: 2px 16px;}
+
+.table>tbody>tr>td.grid-cell{
+    font-size:14px;
+}
+
+.grid-header-title{
+    font-size:14px;
+}
+
+.left_col{
+    height:890;
+}

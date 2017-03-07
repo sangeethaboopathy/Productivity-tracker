@@ -23,7 +23,7 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
             {
                 var accountInfo = new AccountInfoDto
                 {
-                    StartDate = item.StartDate,
+                    StartDate = item.StartDate.ToShortDateString(),
                     AccountId = item.AccountId,
                     AccountName = item.AccountName,
                     CreatedOn = item.CreatedOn,

@@ -1,43 +1,62 @@
 ﻿function pickAccount(accountId, userId) {
-    debugger;
-    var url = 'Home/PickAccount';
-    var data = { id: accountId };
-
-    $.post(url, data, function (result) {
-        $("#accountInfo").html(result);
-        alert('Update successful!');
+    var projectId = parseInt($('#project_select').val());
+    $.ajax({
+        url: '/Accounts/PickAccount',
+        data: {
+            id: accountId, projectId: projectId
+        },
+        type : "POST",
+        success: function (result) {
+            $("#accountInfo").empty();
+            $("#accountInfo").html(result);
+            alert('Update successful!');
+        },
+        error: function (err) {
+            alert(err.statusText);
+        }
     });
 }
 
 function completeAccount() {
-    debugger;
     var accountId = $('#hdnAccountId').val();
     var timeLogId = $('#hdnTimeLogId').val();
     var statusId = $('#hdnStatusId').val();
+    var projectId = $('#hdnProjectId').val();
     var comment = $('#txtComments').val();
-    var url = 'Home/CompleteAccount';
-    var data = { timeLogId: timeLogId, accountId: accountId, statusId: statusId, comments: comment };
+    var url = 'Accounts/CompleteAccount';
+    var data = { timeLogId: timeLogId, accountId: accountId, statusId: statusId, comments: comment, projectId: projectId };
 
-    $.post(url, data, function (result) {
-        $("#accountInfo").html(result);
-        alert('Update successful!');
+    $.ajax({
+        url: '/Accounts/CompleteAccount',
+        data: data,
+        type: "POST",
+        success: function (result) {
+            $("#accountInfo").empty();
+            $("#accountInfo").html(result);
+            alert('Update successful!');
+        },
+        error: function (err) {
+            alert(err.statusText);
+        }
     });
 }
 
 function showModal(timeLogId, accountId, statusId) {
+    var projectId = parseInt($('#project_select').val());
     $('#commentsModal').modal('show');
+    $('div').removeClass("modal-backdrop in");
     $('#hdnTimeLogId').val(timeLogId);
     $('#hdnAccountId').val(accountId);
     $('#hdnStatusId').val(statusId);
+    $('#hdnProjectId').val(projectId);
 }
 
 function showHistory(id) {
-    debugger;
     $('#' + id.id).modal('show');
+    $('div').removeClass("modal-backdrop in");
 }
 
 function PopulateAccountsForProject() {
-    debugger;
     var select = parseInt($('#project_select').val());
     $.ajax({
         url: '/Accounts/GetAccountsDetails',
