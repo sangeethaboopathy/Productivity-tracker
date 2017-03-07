@@ -17,31 +17,34 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
         public List<AccountInfoDto> Execute(int projectId)
         {
             List<AccountInfoDto> info = new List<AccountInfoDto>();
-            var accounts = dbContext.MarketingAccountDetails.Where(var => (var.ProjectId ?? 0) == projectId);
+            var accounts = dbContext.MarketingAccountDetails.Where(var => (projectId == 0) || (var.ProjectId ?? 0) == projectId);
 
             foreach (var item in accounts)
             {
                 var accountInfo = new AccountInfoDto
                 {
-                    StartDate = item.StartDate.ToShortDateString(),
+                    StartDate = item.StartDate.ToString("dd MMMM yy"),
                     AccountId = item.AccountId,
                     AccountName = item.AccountName,
                     CreatedOn = item.CreatedOn,
                     CustomId = item.CustomAccountId,
                     Status = item.Status,
+                    ProjectId = item.ProjectId ?? 0,
+                    ProjectName = item.ProjectId == 0 ? "" : dbContext.ProjectDetails.Find(item.ProjectId).ProjectName
                 };
 
                 accountInfo.ProgressHistory = new List<ProgressHistory>();
                 var history = dbContext.AccountTimeLogDetails.Where(x => x.AccountId == item.AccountId);
-                if(history!=null)
+                if (history != null)
                 {
-                    foreach(var log in history)
+                    foreach (var log in history)
                     {
                         var historyItem = new ProgressHistory
                         {
                             StartTime = log.StartTime,
                             EndTime = log.EndTime,
-                            UserName = dbContext.UserPersonalDetails.FirstOrDefault(x => x.UserId == log.UserId).FirstName
+                            UserName = dbContext.UserPersonalDetails.FirstOrDefault(x => x.UserId == log.UserId).FirstName,
+                            Comments = log.Comment
                         };
 
                         if (log.Status != null)
@@ -82,7 +85,7 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
 
                 info.Add(accountInfo);
             }
-            
+
             return info.ToList();
         }
     }

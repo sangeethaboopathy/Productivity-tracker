@@ -178,6 +178,8 @@
     <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\custom.min.css" />
+    <Content Include="Content\css\dataTables.material.min.css" />
+    <Content Include="Content\css\datatables.min.css" />
     <Content Include="Content\css\docs.min.css" />
     <Content Include="Content\css\shCoreDefault.css" />
     <Content Include="Content\Gridmvc.css" />
@@ -289,6 +291,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.min.js" />
+    <Content Include="Scripts\dataTables.material.min.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
     <Content Include="Scripts\gridmvc.min.js" />

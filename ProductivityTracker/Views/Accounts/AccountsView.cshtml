@@ -4,20 +4,20 @@
     Layout = "~/Views/Shared/_AppLayout.cshtml";
 }
 
-<h2  style="margin-bottom: 40px;">Accounts Details</h2>
+<h2 style="margin-bottom: 40px;">Accounts Details</h2>
 
 <div class="project-select-container" style="margin-bottom: 40px; display: inline-block; width: 45%">
 
     <h4 style="font-size: 16px">
         Project
     </h4>
-    
+
     @*<div class="heading"  style="display:inline-block">
-        Select a project: 
-    </div>*@
+            Select a project:
+        </div>*@
     <select id="project_select" class="form-control" style="display: inline-block; width: 70%" onchange="PopulateAccountsForProject()">
         <option value="0" selected="selected">Select a project</option>
-        @foreach (var project in ((ProjectDropdownModel) ViewBag.Projects).Projects)
+        @foreach (var project in ((ProjectDropdownModel)ViewBag.Projects).Projects)
         {
             <option value="@project.ProjectId">@project.ProjectName</option>
         }
@@ -25,12 +25,12 @@
 </div>
 
 <div class="file-upload-container" style="margin-bottom: 40px; display: inline-block; width: 45%">
-    
+
     <h4 style="font-size: 16px">
         Upload accounts to project
     </h4>
-    
-    <div  style="display:inline-block">
+
+    <div style="display:inline-block">
         <input type="file" id="btnSelectFile" onchange="checkFileType()" style="display: inline-block; margin-right: 30px" />
         <button type="button" id="btnUpload" class="btn btn-success" style="width: 120px; display:inline-block">
             <span style="margin-right: 6px;">
@@ -51,34 +51,40 @@
 <script>
     $(document).ready(function () {
         $('#btnUpload').click(function () {
-            if (window.FormData !== undefined) {
+            if(parseInt($('#project_select').val() === 0)) {
+                alert("Select a project and then upload accounts.");
+            }
+            else {
+                if (window.FormData !== undefined) {
 
-                var fileUpload = $("#btnSelectFile").get(0);
-                var files = fileUpload.files;
+                    var fileUpload = $("#btnSelectFile").get(0);
+                    var files = fileUpload.files;
 
-                var fileData = new FormData();
+                    var fileData = new FormData();
 
-                for (var i = 0; i < files.length; i++) {
-                    fileData.append(files[i].name, files[i]);
-                }
-
-                $.ajax({
-                    url: '/Accounts/UploadFiles',
-                    type: "POST",
-                    contentType: false, // Not to set any content header
-                    processData: false, // Not to process data
-                    data: fileData,
-                    success: function (result) {
-                        $("#accountInfo").html(result);
-                        $('#btnSelectFile').val("");
-                        alert('Upload successful!');
-                    },
-                    error: function (err) {
-                        alert(err.statusText);
+                    fileData.append("projectId", parseInt($('#project_select').val()));
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
                     }
-                });
-            } else {
-                alert("FormData is not supported.");
+
+                    $.ajax({
+                        url: '/Accounts/UploadFiles',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+                            $("#accountInfo").html(result);
+                            $('#btnSelectFile').val("");
+                            alert('Upload successful!');
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
             }
         });
     });

@@ -9,7 +9,7 @@ namespace ProductivityTracker_Business.Interface
 {
     public interface IAccountExecutor: IBaseExecutor
     {
-        BaseResponse UploadAccountsInfo(string fileContent, int userId);
+        BaseResponse UploadAccountsInfo(string fileContent, int userId, int projectId);
         BaseResponse PickAccount(int userId, int accountId);
         BaseResponse CompleteAccount(int userId, int accountId, int timeLogId, int statusId, string comment);
     }

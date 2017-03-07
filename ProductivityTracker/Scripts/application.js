@@ -5,7 +5,7 @@
         data: {
             id: accountId, projectId: projectId
         },
-        type : "POST",
+        type: "POST",
         success: function (result) {
             $("#accountInfo").empty();
             $("#accountInfo").html(result);
@@ -58,17 +58,19 @@ function showHistory(id) {
 
 function PopulateAccountsForProject() {
     var select = parseInt($('#project_select').val());
-    $.ajax({
-        url: '/Accounts/GetAccountsDetails',
-        data: {
-            projectId: select
-        },
-        success: function (result) {
-            $('.accounts-list-container').empty();
-            $('.accounts-list-container').html(result);
-        },
-        error: function (err) {
-            alert(err.statusText);
-        }
-    });
+    if (select !== 0) {
+        $.ajax({
+            url: '/Accounts/GetAccountsDetails',
+            data: {
+                projectId: select
+            },
+            success: function (result) {
+                $('.accounts-list-container').empty();
+                $('.accounts-list-container').html(result);
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+    }
 }

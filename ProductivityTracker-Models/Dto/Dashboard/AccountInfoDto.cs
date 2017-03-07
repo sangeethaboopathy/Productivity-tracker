@@ -8,6 +8,8 @@ namespace ProductivityTracker_Models.Dto.Dashboard
 {
     public class AccountInfoDto
     {
+        public string ProjectName { get; set; }
+        public int ProjectId { get; set; }
         public int AccountId { get; set; }
         public string CustomId { get; set; }
         public string AccountName { get; set; }
@@ -27,5 +29,6 @@ namespace ProductivityTracker_Models.Dto.Dashboard
         public DateTime? EndTime { get; set; }
         public string UserName { get; set; }
         public string Status { get; set; }
+        public string Comments { get; set; }
     }
 }

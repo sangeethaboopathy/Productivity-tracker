@@ -39,7 +39,8 @@ namespace ProductivityTracker_DataAccess.CommandHandlers.Account
                         CreatedBy = command.UserId,
                         CreatedOn = DateTime.Now,
                         Status = "New",
-                        StatusInt = 1
+                        StatusInt = 1,
+                        ProjectId = command.ProjectId
                     });
                 }
             }
