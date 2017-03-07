@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using ProductivityTracker_Business;
+using ProductivityTracker_Business.Interface;
+using ProductivityTracker_Models.ViewModels.Project;
+using System;
 using System.Web.Mvc;
 
 namespace ProductivityTracker.Controllers
 {
     public class ProjectsController : Controller
     {
-        // GET: Projects
+        private readonly IProjectExecutor _projectExecutor = ExecutorFacade.GetProjectsInstance();
+
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new ProjectDetailsViewModel();
+            var projects = _projectExecutor.GetProjectsForDropdown();
+            if (projects.HasError)
+                throw new Exception();
+
+            var projectModel = (ProjectDropdownModel)projects;
+            viewModel.Projects = projectModel.Projects;
+
+            return View("Index", viewModel);
         }
     }
 }
