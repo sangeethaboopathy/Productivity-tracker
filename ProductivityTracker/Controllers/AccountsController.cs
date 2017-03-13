@@ -11,6 +11,7 @@ using ProductivityTracker_Models.ViewModels.Dashboard;
 
 namespace ProductivityTracker.Controllers
 {
+    [CustomAuthorize]
     public class AccountsController : Controller
     {
         private readonly IDashboardExecutor _dashboardExecutor = ExecutorFacade.GetDashboardInstance();

@@ -18,23 +18,46 @@ namespace ProductivityTracker_DataAccess.CommandHandlers.Account
 
         public override void Execute(CompleteAccountCommand command)
         {
-            var account = dbContext.MarketingAccountDetails.Find(command.AccountId);
-            if (account != null)
+            if (command.StatusInt == 5)
             {
-                var updateDate = DateTime.Now;
-                account.Status = command.StatusInt == 3 ? "Paused" : "Completed";
-                account.StatusInt = command.StatusInt;
-                account.UpdatedOn = updateDate;
-
-                var timeLog = dbContext.AccountTimeLogDetails.Find(command.TimeLogId);
-                if (timeLog != null && timeLog.AccountId == command.AccountId)
+                var account = dbContext.MarketingAccountDetails.Find(command.AccountId);
+                if (account != null)
                 {
-                    timeLog.EndTime = DateTime.Now;
-                    timeLog.Comment = command.Comment;
-                    timeLog.Status = command.StatusInt;
-                }
+                    var timelog = dbContext.AccountTimeLogDetails.Where(x => x.AccountId == command.AccountId);
 
-                dbContext.SaveChanges();
+                    foreach(var item in timelog)
+                    {
+                        dbContext.AccountTimeLogDetails.Remove(item);
+                    }
+
+                    account.Status = "New";
+                    account.StatusInt = 1;
+                    account.UpdatedBy = command.UserId;
+                    account.UpdatedOn = DateTime.Now;
+
+                    dbContext.SaveChanges();
+                }
+            }
+            else
+            {
+                var account = dbContext.MarketingAccountDetails.Find(command.AccountId);
+                if (account != null)
+                {
+                    var updateDate = DateTime.Now;
+                    account.Status = command.StatusInt == 3 ? "Paused" : "Completed";
+                    account.StatusInt = command.StatusInt;
+                    account.UpdatedOn = updateDate;
+
+                    var timeLog = dbContext.AccountTimeLogDetails.Find(command.TimeLogId);
+                    if (timeLog != null && timeLog.AccountId == command.AccountId)
+                    {
+                        timeLog.EndTime = DateTime.Now;
+                        timeLog.Comment = command.Comment;
+                        timeLog.Status = command.StatusInt;
+                    }
+
+                    dbContext.SaveChanges();
+                }
             }
         }
     }
