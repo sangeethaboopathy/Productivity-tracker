@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace ProductivityTracker.Controllers
 {
+    [CustomAuthorize]
     public class ReportController : Controller
     {
         // GET: Report

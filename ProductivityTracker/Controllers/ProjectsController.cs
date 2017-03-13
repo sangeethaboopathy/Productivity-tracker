@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace ProductivityTracker.Controllers
 {
+    [CustomAuthorize]
     public class ProjectsController : Controller
     {
         private readonly IProjectExecutor _projectExecutor = ExecutorFacade.GetProjectsInstance();

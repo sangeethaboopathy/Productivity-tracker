@@ -17,7 +17,7 @@ namespace ProductivityTracker_DataAccess.QueryExecutors.Dashboard
         public List<AccountInfoDto> Execute(int projectId)
         {
             List<AccountInfoDto> info = new List<AccountInfoDto>();
-            var accounts = dbContext.MarketingAccountDetails.Where(var => (projectId == 0) || (var.ProjectId ?? 0) == projectId);
+            var accounts = dbContext.MarketingAccountDetails.Where(var => (projectId == 0) || (var.ProjectId ?? 0) == projectId).OrderBy(var => var.StatusInt).ThenBy(var => var.StartDate);
 
             foreach (var item in accounts)
             {
